@@ -1,8 +1,15 @@
 package gormvalidator
 
-import "gorm.io/gorm"
+import (
+	"github.com/go-playground/validator/v10"
+	"gorm.io/gorm"
+)
+
+var _validator *validator.Validate
 
 func RegisterCallbacks(db *gorm.DB) {
+	_validator = validator.New()
+
 	callbackName := "gormvalidations:validate"
 	createCallback := db.Callback().Create()
 	if createCallback.Get(callbackName) == nil {
