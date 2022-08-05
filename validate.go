@@ -16,7 +16,8 @@ func validate(db *gorm.DB) {
 		db.AddError(_validator.Struct(value))
 		if i, ok := value.(ValidateInterface); ok {
 			db.AddError(i.Validate(tx))
+			return true
 		}
-		return true
+		return
 	})
 }
